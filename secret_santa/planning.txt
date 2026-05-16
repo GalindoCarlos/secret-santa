@@ -1,0 +1,39 @@
+My plan for this project is to build a simple way of assigning people for
+secret santa.
+
+Given a list of people, randomly assign one person to another person.
+
+These assignments are one-directional
+i.e A->B but not B->A
+
+Additionally
+A cannot be assigned A
+
+
+
+Ideally, there will be an emailing system to allow
+all assignments to be sent to the corresponding individuals
+
+
+
+Order of implementation:
+1. Derive a simple algorithim, assuming list of people
+   is already populated
+
+
+2. Figure out a way to read people's information 
+   from a file
+
+
+3. Figure out a simple prompt-system to write
+   information to a file
+
+
+4. Find emailing library
+
+
+5. Find library to a create a user-interface
+
+
+
+
