@@ -1,7 +1,6 @@
 #include "choose.h"
 
 int main(int argc, char *argv[]) {
-   printf("Got here");
    int num_people = 3;
 
    struct person *people = malloc(num_people * sizeof(struct person));
@@ -10,18 +9,18 @@ int main(int argc, char *argv[]) {
    char *some_info[] = {"Carlos", "carlosgalindo@utexas.edu", "Bob", "bob@utexas.edu", "James", "james@utexas.edu"};
 
 
-   printf("Got here2");
-
-
    char **info = some_info;
 
    load_people(info, people, num_people);
+   
+   assign_people(people, num_people);
 
    for (int i = 0; i < num_people; i++) {
-      printf("\nPerson %d, name is %s, email is %s\n", i, people[i].name, people[i].email);
+      printf("%s is assigned to %s\n", people[i].name, people[i].assigned->name);
    }
 
-   //free(people);
+
+   free_people(people, num_people);
 
    return 1;
 }
@@ -41,4 +40,28 @@ void load_people(char **info, struct person *people, int num_people) {
      people[i].email = strncpy(people[i].email, info[2 * i + 1], strlen(info[2 * i + 1]) + 1);
   }
   
+}
+
+
+void assign_people(struct person *people, int num_people) {
+   srand(time(NULL));
+   for (int i = 0; i < num_people; i++) {
+      while (true) {
+         int assigned_index = rand() % num_people;
+	 if (assigned_index != i && !people[assigned_index].chosen) {
+            people[assigned_index].chosen = true;
+	    people[i].assigned = &(people[assigned_index]);
+	    break;
+	 }
+      }
+   }
+}
+
+
+void free_people(struct person *people, int num_people) {
+   for (int i = 0; i < num_people; i++) {
+      free(people[i].name);
+      free(people[i].email);
+   }
+   free(people);
 }
