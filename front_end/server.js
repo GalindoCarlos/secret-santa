@@ -1,3 +1,5 @@
+require("dotenv").config({ path: "../.env" });
+
 // Used to access filesystem library
 const fs = require("fs");
 
@@ -35,21 +37,34 @@ app.post("/info-submitted", function (request, result) {
    execFile("../choose", function (error, stdout, stderr) {
       if (error) {
          console.error(error);
+         result.status(500).json({
+            message: "Error creating assignments"
+         });
          return;
       }
-      console.log(stdout);
-
       if (stderr) {
          console.error(stderr);
       }
 
+      execFile("../venv/bin/python3", ["../emailing.py"], function (error, stdout, stderr) {
+         if (error) {
+            console.error(error);
+            result.status(500).json({
+               message: "Emails not sent successfully"
+            });
+            return;
+         }
+         console.log(stdout);
 
-   });
+         if (stderr) {
+            console.error(stderr);
+         }
 
+         result.json({
+            message: "Emails successfully sent"
+         });
 
-   // let web-side know request was received
-   result.json({
-      message: "Info received"
+      });
    });
 
 });

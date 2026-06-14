@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
    shuffle_people(people, num_people);
    assign_people(people, num_people);
 
-   FILE *res_file = fopen("../results.txt", "w");
+   FILE *res_file = fopen("results.txt", "w");
    for (int i = 0; i < num_people; i++) {
       fprintf(res_file, "%s,%s,%s\n", people[i].name, people[i].email, people[i].assigned->name);
    }

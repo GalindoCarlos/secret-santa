@@ -2,6 +2,7 @@ const people_button = document.getElementById("people_button");
 const num_people_input = document.getElementById("num_people");
 const people_section = document.getElementById("info_section");
 const parse_button = document.getElementById("parse_button");
+const status_message = document.getElementById("status_message");
 
 people_button.addEventListener("click", function() {
    const num_people = Number(num_people_input.value);
@@ -45,6 +46,6 @@ parse_button.addEventListener("click", async function() {
    });
 
    const result = await response.json();
-
    console.log(result);
+   status_message.textContent = result.message;
 });
