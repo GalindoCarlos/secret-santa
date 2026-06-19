@@ -1,5 +1,7 @@
 require("dotenv").config();
 
+const path = require("path")
+
 // Used to access filesystem library
 const fs = require("fs");
 
@@ -13,7 +15,7 @@ const express = require("express");
 const app = express();
 
 // where the app can be accessed
-const PORT = process.env.port || 3000;
+const PORT = process.env.PORT || 3000;
 
 // allows server to parse JSON files into Javascript objects
 app.use(express.json());
@@ -70,7 +72,7 @@ app.post("/info-submitted", function (request, result) {
 });
 
 // allows server to access files in current directory
-app.use(express.static("."));
+app.use(express.static(__dirname));
 
 // used to print message whenever Node is used to start this server
 app.listen(PORT, () => {
