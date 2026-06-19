@@ -32,11 +32,11 @@ app.post("/info-submitted", function (request, result) {
                    request.body.people[i].email + "\n";
 
    }
+   const infoPath = path.join(__dirname, "..", "info.txt");
+   fs.writeFileSync(infoPath, file_text);
 
-   fs.writeFileSync("info.txt", file_text);
 
-
-   execFile("../choose", function (error, stdout, stderr) {
+   execFile(path.join(__dirname, "..", "choose"), function (error, stdout, stderr) {
       if (error) {
          console.error(error);
          result.status(500).json({
@@ -48,7 +48,7 @@ app.post("/info-submitted", function (request, result) {
          console.error(stderr);
       }
 
-      execFile("python3", ["../emailing.py"], function (error, stdout, stderr) {
+      execFile("python3", [path.join(__dirname, "..", "emailing.py")], function (error, stdout, stderr) {
          if (error) {
             console.error(error);
             result.status(500).json({
